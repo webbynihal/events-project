@@ -4,30 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Webbynihal Events | Premium Event Management</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- International Telephone Input CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/css/intlTelInput.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Loading Screen -->
     <div id="loader">
         <div class="spinner"></div>
         <p>Webbynihal Events</p>
     </div>
 
-    <!-- Scroll Progress Bar -->
     <div id="progress-container">
         <div id="progress-bar"></div>
     </div>
 
-    <!-- Navbar -->
     <nav id="navbar">
         <div class="nav-container">
             <a href="#" class="logo">Webbynihal<span>Events</span></a>
@@ -41,7 +34,7 @@
                 <li><a href="#contact">Contact</a></li>
                 <li><button id="theme-toggle" aria-label="Toggle Dark/Light Mode"><i class="fas fa-moon"></i></button></li>
             </ul>
-            <div class="hamburger">
+            <div class="hamburger" aria-label="Menu" aria-expanded="false" role="button">
                 <div class="line1"></div>
                 <div class="line2"></div>
                 <div class="line3"></div>
@@ -49,7 +42,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <header id="home" class="hero">
         <div class="hero-content fade-in">
             <h1>We Don’t Just Plan Events,<br>We Create Experiences.</h1>
@@ -64,7 +56,6 @@
         </a>
     </header>
 
-    <!-- Services Section -->
     <section id="services" class="section">
         <div class="container">
             <div class="section-title fade-in-up">
@@ -106,7 +97,6 @@
         </div>
     </section>
 
-    <!-- Gallery Section -->
     <section id="gallery" class="section bg-light">
         <div class="container">
             <div class="section-title fade-in-up">
@@ -161,7 +151,6 @@
         </div>
     </section>
 
-    <!-- Packages Section -->
     <section id="packages" class="section">
         <div class="container">
             <div class="section-title fade-in-up">
@@ -210,7 +199,6 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
     <section id="testimonials" class="section bg-light">
         <div class="container">
             <div class="section-title fade-in-up">
@@ -223,7 +211,7 @@
                         <div class="stars">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
-                        <p class="review">"Aura Events transformed our wedding into a literal fairytale. Every detail was flawless and elegant."</p>
+                        <p class="review">"Webbynihal Events transformed our wedding into a literal fairytale. Every detail was flawless and elegant."</p>
                         <div class="client-info">
                             <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah J.">
                             <div>
@@ -267,7 +255,6 @@
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="section">
         <div class="container">
             <div class="about-content">
@@ -297,7 +284,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="section bg-light">
         <div class="container">
             <div class="section-title fade-in-up">
@@ -344,7 +330,7 @@
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h4>Email Us</h4>
-                            <p>hello@webbynihalevents.com</p>
+                            <p>hello ny738109@gmail.com</p>
                         </div>
                     </div>
                     <div class="info-item">
@@ -354,7 +340,6 @@
                             <p>+1 (555) 123-4567</p>
                         </div>
                     </div>
-                    <!-- Google Maps Placeholder (iframe) -->
                     <div class="map-container">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3546594.135471464!2d-71.0000!3d25.0000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
@@ -363,7 +348,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container footer-content">
             <div class="footer-brand">
@@ -399,11 +383,8 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
     <button id="back-to-top" aria-label="Back to Top"><i class="fas fa-arrow-up"></i></button>
 
-    <!-- Scripts -->
-    <!-- International Telephone Input JS -->
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/intlTelInput.min.js"></script>
     <script src="script.js"></script>
 </body>

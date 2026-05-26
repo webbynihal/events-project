@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- 1. Loading Screen ---
+
     const loader = document.getElementById('loader');
     window.addEventListener('load', () => {
         setTimeout(() => {
@@ -8,32 +7,27 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 loader.style.display = 'none';
             }, 500);
-        }, 500); // Small delay for effect
+        }, 500);
     });
 
-    // --- 2. Update Footer Year ---
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // --- 3. Scroll Progress Bar & Back to Top & Navbar ---
     const progressBar = document.getElementById('progress-bar');
     const navbar = document.getElementById('navbar');
     const backToTopBtn = document.getElementById('back-to-top');
 
     window.addEventListener('scroll', () => {
-        // Progress Bar
         const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         const scrolled = (winScroll / height) * 100;
         progressBar.style.width = scrolled + "%";
 
-        // Navbar scrolled state
         if (winScroll > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
 
-        // Back to Top Button
         if (winScroll > 300) {
             backToTopBtn.classList.add('show');
         } else {
@@ -48,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 4. Mobile Menu Toggle ---
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
     const links = document.querySelectorAll('.nav-links li');
@@ -56,23 +49,22 @@ document.addEventListener('DOMContentLoaded', () => {
     hamburger.addEventListener('click', () => {
         navLinks.classList.toggle('nav-active');
         hamburger.classList.toggle('toggle');
+        hamburger.setAttribute('aria-expanded', navLinks.classList.contains('nav-active'));
     });
 
-    // Close mobile menu on link click
     links.forEach(link => {
         link.addEventListener('click', () => {
             if (navLinks.classList.contains('nav-active')) {
                 navLinks.classList.remove('nav-active');
                 hamburger.classList.remove('toggle');
+                hamburger.setAttribute('aria-expanded', 'false');
             }
         });
     });
 
-    // --- 5. Theme Toggle (Dark/Light) ---
     const themeToggleBtn = document.getElementById('theme-toggle');
     const themeIcon = themeToggleBtn.querySelector('i');
-    
-    // Check localStorage for theme
+
     const currentTheme = localStorage.getItem('theme');
     if (currentTheme === 'dark') {
         document.body.classList.add('dark-mode');
@@ -81,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     themeToggleBtn.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
-        
+
         if (document.body.classList.contains('dark-mode')) {
             themeIcon.classList.replace('fa-moon', 'fa-sun');
             localStorage.setItem('theme', 'dark');
@@ -91,9 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 6. Scroll Animations (Intersection Observer) ---
     const animatedElements = document.querySelectorAll('.fade-in-up');
-    
+
     const observerOptions = {
         root: null,
         rootMargin: '0px',
@@ -113,23 +104,19 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
-    // --- 7. Gallery Filtering ---
     const filterBtns = document.querySelectorAll('.filter-btn');
     const galleryItems = document.querySelectorAll('.gallery-item');
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Remove active class from all
             filterBtns.forEach(b => b.classList.remove('active'));
-            // Add active to current
             btn.classList.add('active');
 
             const filterValue = btn.getAttribute('data-filter');
 
             galleryItems.forEach(item => {
                 if (filterValue === 'all' || item.classList.contains(filterValue)) {
-                    item.style.display = 'block';
-                    // Reset animation for re-filtering
+                    item.style.display = '';
                     item.classList.remove('appear');
                     setTimeout(() => item.classList.add('appear'), 50);
                 } else {
@@ -139,12 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 8. Testimonials Slider ---
     const track = document.getElementById('testimonial-track');
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
     const cards = document.querySelectorAll('.testimonial-card');
-    
+
     let currentIndex = 0;
 
     function updateSlider() {
@@ -154,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     nextBtn.addEventListener('click', () => {
         currentIndex++;
         if (currentIndex >= cards.length) {
-            currentIndex = 0; // Loop back to start
+            currentIndex = 0;
         }
         updateSlider();
     });
@@ -162,17 +148,15 @@ document.addEventListener('DOMContentLoaded', () => {
     prevBtn.addEventListener('click', () => {
         currentIndex--;
         if (currentIndex < 0) {
-            currentIndex = cards.length - 1; // Loop back to end
+            currentIndex = cards.length - 1;
         }
         updateSlider();
     });
 
-    // Auto slide
     let autoSlide = setInterval(() => {
         nextBtn.click();
     }, 5000);
 
-    // Pause on hover
     const sliderContainer = document.querySelector('.testimonial-slider-container');
     sliderContainer.addEventListener('mouseenter', () => clearInterval(autoSlide));
     sliderContainer.addEventListener('mouseleave', () => {
@@ -181,31 +165,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5000);
     });
 
-    // --- 9. Animated Counters ---
     const counters = document.querySelectorAll('.counter');
     let countersStarted = false;
 
     const startCounters = () => {
         counters.forEach(counter => {
             const target = +counter.getAttribute('data-target');
-            const duration = 2000; // ms
-            const step = target / (duration / 16); // 60fps approx
+            const duration = 2000;
+            let startTimestamp = null;
 
-            let current = 0;
-            const updateCounter = () => {
-                current += step;
-                if (current < target) {
-                    counter.innerText = Math.ceil(current);
-                    requestAnimationFrame(updateCounter);
+            const animate = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+
+                const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+                counter.innerText = Math.floor(easedProgress * target);
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
                 } else {
                     counter.innerText = target;
                 }
             };
-            updateCounter();
+            requestAnimationFrame(animate);
         });
     };
 
-    // Use Intersection Observer to trigger counters when visible
     const statsSection = document.querySelector('.about-stats');
     if (statsSection) {
         const statsObserver = new IntersectionObserver((entries) => {
@@ -217,7 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
         statsObserver.observe(statsSection);
     }
 
-    // --- 10. Initialize International Tel Input ---
     const phoneInput = document.querySelector("#phone");
     let iti;
     if (phoneInput) {
@@ -230,47 +215,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 10. Form Submission ---
     const form = document.getElementById('booking-form');
     if (form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            // Pehle ke saare highlights reset karein
             const inputs = form.querySelectorAll('input, select, textarea');
             inputs.forEach(input => input.classList.remove('error-input'));
 
-            // Custom Validation using intl-tel-input
             if (phoneInput && !iti.isValidNumber()) {
                 phoneInput.setCustomValidity('Please enter a valid phone number for your region.');
             } else {
                 if (phoneInput) phoneInput.setCustomValidity('');
             }
 
-            // Check if form is valid
             if (!form.checkValidity()) {
                 inputs.forEach(input => {
                     if (!input.checkValidity()) {
                         input.classList.add('error-input');
-                        // Jab user wapas type kare toh highlight hata dein
                         input.addEventListener('input', () => {
                             input.classList.remove('error-input');
                         }, { once: true });
                     }
                 });
-                form.reportValidity(); // Yeh user ko point out karega ki galti kaha hai
+                form.reportValidity();
                 return;
             }
 
             const btn = form.querySelector('button[type="submit"]');
             const originalText = btn.innerText;
-            
+
             btn.innerText = 'Sending...';
             btn.disabled = true;
 
             const formData = new FormData(form);
-            
-            // Replace phone with full international number
+
             if (iti) formData.set('phone', iti.getNumber());
 
             fetch(form.action, {
@@ -300,4 +279,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    window.addEventListener('resize', () => {
+        currentIndex = 0;
+        updateSlider();
+
+        if (window.innerWidth > 768 && navLinks.classList.contains('nav-active')) {
+            navLinks.classList.remove('nav-active');
+            hamburger.classList.remove('toggle');
+        }
+    });
 });

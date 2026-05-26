@@ -1,14 +1,9 @@
-/* ==============================
-   CSS Variables & Theming
-   ============================== */
 :root {
-    /* Color Palette */
     --color-primary: #D4AF37; /* Gold */
     --color-primary-glow: rgba(212, 175, 55, 0.4);
     --color-secondary: #4A154B; /* Deep Purple */
     --color-secondary-light: #6a1b6c;
-    
-    /* Light Mode (Default) */
+
     --bg-main: #FFFFFF;
     --bg-alt: #F9F9F9;
     --text-main: #1A1A1A;
@@ -17,21 +12,17 @@
     --card-border: rgba(0, 0, 0, 0.05);
     --glass-bg: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.3);
-    
-    /* Shadows */
+
     --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
     --shadow-glow: 0 0 20px var(--color-primary-glow);
-    
-    /* Typography */
+
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Montserrat', sans-serif;
-    
-    /* Transitions */
+
     --transition-fast: 0.3s ease;
     --transition-slow: 0.5s ease;
 }
 
-/* Dark Mode Theme */
 body.dark-mode {
     --bg-main: #0a0a0a;
     --bg-alt: #111111;
@@ -44,9 +35,6 @@ body.dark-mode {
     --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* ==============================
-   Resets & Base Styles
-   ============================== */
 * {
     margin: 0;
     padding: 0;
@@ -87,7 +75,6 @@ img {
     display: block;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -99,9 +86,6 @@ img {
     border-radius: 4px;
 }
 
-/* ==============================
-   Components & Utilities
-   ============================== */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -139,7 +123,6 @@ img {
     color: var(--text-muted) !important;
 }
 
-/* Buttons */
 .btn {
     display: inline-block;
     padding: 1rem 2.5rem;
@@ -192,7 +175,6 @@ img {
     width: 100%;
 }
 
-/* Glassmorphism */
 .glass {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
@@ -200,9 +182,6 @@ img {
     border: 1px solid var(--glass-border);
 }
 
-/* ==============================
-   Loading Screen & Progress
-   ============================== */
 #loader {
     position: fixed;
     top: 0;
@@ -256,9 +235,6 @@ img {
     box-shadow: 0 0 10px var(--color-primary);
 }
 
-/* ==============================
-   Navbar
-   ============================== */
 #navbar {
     position: fixed;
     top: 0;
@@ -355,7 +331,6 @@ img {
     color: var(--color-primary);
 }
 
-/* Hamburger Menu */
 .hamburger {
     display: none;
     cursor: pointer;
@@ -373,9 +348,6 @@ img {
     background-color: var(--text-main);
 }
 
-/* ==============================
-   Hero Section
-   ============================== */
 .hero {
     height: 100vh;
     display: flex;
@@ -385,7 +357,6 @@ img {
     position: relative;
     color: #fff;
     overflow: hidden;
-    /* Animated Gradient Background */
     background: linear-gradient(-45deg, #0a0a0a, #1a1a2e, #4A154B, #1a1a1a);
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
@@ -450,9 +421,6 @@ img {
     60% { transform: translateY(-10px) translateX(-50%); }
 }
 
-/* ==============================
-   Services Section
-   ============================== */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -492,9 +460,6 @@ img {
     margin-bottom: 1rem;
 }
 
-/* ==============================
-   Gallery Section
-   ============================== */
 .gallery-filters {
     display: flex;
     justify-content: center;
@@ -576,9 +541,6 @@ img {
     transform: translateY(0);
 }
 
-/* ==============================
-   Packages Section
-   ============================== */
 .pricing-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -657,9 +619,6 @@ img {
     color: var(--color-primary);
 }
 
-/* ==============================
-   Testimonials Section
-   ============================== */
 .testimonial-slider-container {
     position: relative;
     max-width: 900px;
@@ -743,9 +702,6 @@ img {
     border-color: var(--color-primary);
 }
 
-/* ==============================
-   About Section
-   ============================== */
 .about-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -793,9 +749,6 @@ img {
     margin-top: 0.5rem;
 }
 
-/* ==============================
-   Contact Section
-   ============================== */
 .contact-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -826,7 +779,6 @@ img {
     transition: border-color var(--transition-fast);
 }
 
-/* Fix for international tel input width */
 .iti {
     width: 100%;
 }
@@ -866,9 +818,6 @@ img {
     box-shadow: var(--shadow-soft);
 }
 
-/* ==============================
-   Footer
-   ============================== */
 footer {
     background: #0a0a0a;
     color: #fff;
@@ -978,9 +927,6 @@ footer {
     font-size: 0.9rem;
 }
 
-/* ==============================
-   Back to Top Button
-   ============================== */
 #back-to-top {
     position: fixed;
     bottom: 30px;
@@ -1012,9 +958,6 @@ footer {
     transform: translateY(-5px);
 }
 
-/* ==============================
-   Animations (Fade In)
-   ============================== */
 .fade-in {
     opacity: 0;
     animation: fadeIn 1s ease forwards;
@@ -1035,9 +978,6 @@ footer {
     to { opacity: 1; }
 }
 
-/* ==============================
-   Media Queries
-   ============================== */
 @media (max-width: 992px) {
     .about-content, .contact-wrapper {
         grid-template-columns: 1fr;
@@ -1096,7 +1036,6 @@ footer {
     }
 }
 
-/* Hamburger Animation */
 .toggle .line1 {
     transform: rotate(-45deg) translate(-5px, 6px);
 }
