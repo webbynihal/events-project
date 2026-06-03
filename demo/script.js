@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
         navLinks.classList.toggle('nav-active');
         hamburger.classList.toggle('toggle');
         hamburger.setAttribute('aria-expanded', navLinks.classList.contains('nav-active'));
+        navbar.classList.toggle('nav-open');
+        document.body.style.overflow = navLinks.classList.contains('nav-active') ? 'hidden' : '';
     });
 
     links.forEach(link => {
@@ -57,7 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (navLinks.classList.contains('nav-active')) {
                 navLinks.classList.remove('nav-active');
                 hamburger.classList.remove('toggle');
+                navbar.classList.remove('nav-open');
                 hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
             }
         });
     });
@@ -287,6 +291,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.innerWidth > 768 && navLinks.classList.contains('nav-active')) {
             navLinks.classList.remove('nav-active');
             hamburger.classList.remove('toggle');
+            navbar.classList.remove('nav-open');
+            document.body.style.overflow = '';
         }
     });
 });
