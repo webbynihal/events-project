@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+// document.addEventListener('DOMContentLoaded', () => {
 
     const loader = document.getElementById('loader');
     window.addEventListener('load', () => {
@@ -221,66 +221,137 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const form = document.getElementById('booking-form');
     if (form) {
+        const requiredFields = form.querySelectorAll('input[required], select[required], textarea[required]');
+        const serviceOptions = form.querySelectorAll('.service-option input[type="checkbox"]');
+        const messageTextarea = form.querySelector('#message');
+        const charCounter = form.querySelector('.char-counter');
+        const btn = form.querySelector('button[type="submit"]');
+        const btnText = btn?.querySelector('.btn-text');
+        const btnLoader = btn?.querySelector('.btn-loader');
+        const statusMessage = form.querySelector('.status-message');
+        const originalBtnText = btnText ? btnText.textContent : 'REQUEST FREE QUOTE';
+
+        function clearErrors() {
+            form.querySelectorAll('.input-group').forEach(group => {
+                group.classList.remove('error');
+                const errorNode = group.querySelector('.error-message');
+                if (errorNode) errorNode.remove();
+            });
+            statusMessage.textContent = '';
+            statusMessage.className = 'status-message';
+            form.classList.remove('form-success');
+        }
+
+        function showError(field, message) {
+            const group = field.closest('.input-group');
+            if (!group) return;
+            group.classList.add('error');
+            let errorNode = group.querySelector('.error-message');
+            if (!errorNode) {
+                errorNode = document.createElement('div');
+                errorNode.className = 'error-message';
+                group.appendChild(errorNode);
+            }
+            errorNode.textContent = message;
+        }
+
+        function updateCounter() {
+            if (!messageTextarea || !charCounter) return;
+            const maxLength = messageTextarea.getAttribute('maxlength') || 500;
+            const currentLength = messageTextarea.value.length;
+            charCounter.textContent = `${currentLength} / ${maxLength}`;
+        }
+
+        function resetServices() {
+            serviceOptions.forEach(option => {
+                option.checked = false;
+                option.closest('.service-option')?.classList.remove('selected');
+            });
+        }
+
+        requiredFields.forEach(field => {
+            field.addEventListener('input', () => {
+                clearErrors();
+                if (field.checkValidity()) {
+                    field.closest('.input-group')?.classList.remove('error');
+                }
+            });
+            field.addEventListener('change', () => {
+                clearErrors();
+                if (field.checkValidity()) {
+                    field.closest('.input-group')?.classList.remove('error');
+                }
+            });
+        });
+
+        serviceOptions.forEach(option => {
+            option.addEventListener('change', () => {
+                clearErrors();
+                const optionCard = option.closest('.service-option');
+                optionCard?.classList.toggle('selected', option.checked);
+            });
+        });
+
+        if (messageTextarea) {
+            messageTextarea.addEventListener('input', updateCounter);
+            updateCounter();
+        }
+
         form.addEventListener('submit', (e) => {
             e.preventDefault();
+            clearErrors();
 
-            const inputs = form.querySelectorAll('input, select, textarea');
-            inputs.forEach(input => input.classList.remove('error-input'));
+            let valid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.checkValidity()) {
+                    showError(field, field.validationMessage || 'This field is required.');
+                    valid = false;
+                }
+            });
 
             if (phoneInput && !iti.isValidNumber()) {
-                phoneInput.setCustomValidity('Please enter a valid phone number for your region.');
-            } else {
-                if (phoneInput) phoneInput.setCustomValidity('');
+                showError(phoneInput, 'Please enter a valid phone number for your region.');
+                valid = false;
+            } else if (phoneInput) {
+                phoneInput.setCustomValidity('');
             }
 
-            if (!form.checkValidity()) {
-                inputs.forEach(input => {
-                    if (!input.checkValidity()) {
-                        input.classList.add('error-input');
-                        input.addEventListener('input', () => {
-                            input.classList.remove('error-input');
-                        }, { once: true });
-                    }
-                });
-                form.reportValidity();
+            if (!valid) {
+                statusMessage.textContent = 'Please complete the highlighted fields to continue.';
+                statusMessage.className = 'status-message error';
                 return;
             }
 
-            const btn = form.querySelector('button[type="submit"]');
-            const originalText = btn.innerText;
-
-            btn.innerText = 'Sending...';
             btn.disabled = true;
+            btn.classList.add('is-loading');
+            if (btnText) btnText.textContent = 'Submitting...';
+            if (btnLoader) btnLoader.setAttribute('aria-hidden', 'false');
 
             const formData = new FormData(form);
-
             if (iti) formData.set('phone', iti.getNumber());
 
-            fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.classList.remove('is-loading');
+                if (btnText) btnText.textContent = originalBtnText;
+                form.classList.add('form-success');
+                statusMessage.textContent = 'Thank you! Your premium inquiry has been received. We will contact you within 24 hours.';
+                statusMessage.className = 'status-message success';
+
+                form.reset();
+                resetServices();
+                if (messageTextarea) {
+                    messageTextarea.value = '';
+                    updateCounter();
                 }
-            }).then(response => {
-                if (response.ok) {
-                    btn.innerText = 'Message Sent!';
-                    btn.style.backgroundColor = '#28a745';
-                    form.reset();
-                } else {
-                    btn.innerText = 'Error!';
-                    btn.style.backgroundColor = '#dc3545';
+                if (phoneInput) {
+                    phoneInput.value = '';
+                    if (iti) {
+                        iti.setNumber('');
+                    }
                 }
-            }).catch(error => {
-                btn.innerText = 'Error!';
-                btn.style.backgroundColor = '#dc3545';
-            }).finally(() => {
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.style.backgroundColor = '';
-                    btn.disabled = false;
-                }, 3000);
-            });
+            }, 1400);
         });
     }
 
@@ -295,4 +366,4 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         }
     });
-});
+// });
