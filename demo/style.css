@@ -520,6 +520,8 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    padding: 1.5rem;
     opacity: 0;
     transition: opacity var(--transition-fast);
 }
@@ -528,17 +530,23 @@ img {
     opacity: 1;
 }
 
-.gallery-overlay span {
+.gallery-details {
+    max-width: 280px;
+}
+
+.gallery-details h3 {
     color: #fff;
     font-family: var(--font-heading);
     font-size: 1.5rem;
-    font-weight: 600;
-    transform: translateY(20px);
-    transition: transform var(--transition-fast);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.5px;
 }
 
-.gallery-item:hover .gallery-overlay span {
-    transform: translateY(0);
+.gallery-details p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 .pricing-grid {
