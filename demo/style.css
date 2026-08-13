@@ -4,11 +4,11 @@
     --color-secondary: #4A154B; /* Deep Purple */
     --color-secondary-light: #6a1b6c;
 
-    --bg-main: #FFFFFF;
-    --bg-alt: #F9F9F9;
+    --bg-main: rgb(239, 234, 234);
+    --bg-alt: rgb(221, 215, 212);
     --text-main: #1A1A1A;
     --text-muted: #666666;
-    --card-bg: rgba(255, 255, 255, 0.8);
+    --card-bg: rgba(241, 240, 233, 0.8);
     --card-border: rgba(0, 0, 0, 0.05);
     --glass-bg: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.3);
@@ -157,7 +157,7 @@ img {
 
 .btn-secondary:hover {
     background-color: #fff;
-    color: var(--text-main);
+    color: #110d0d;
 }
 
 .btn-outline {
@@ -357,7 +357,7 @@ img {
     position: relative;
     color: #fff;
     overflow: hidden;
-    background: url('https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=2560') center center no-repeat;
+    background: url('https://media.youthincmag.com/images/0c2392cc-1a46-44b3-9fd9-4a7e368fd7a7/large.webp') center center no-repeat;
     background-size: 150% auto;
     animation: imageScroll 25s linear infinite alternate;
 }

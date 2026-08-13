@@ -1,4 +1,4 @@
-// document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
     const loader = document.getElementById('loader');
     window.addEventListener('load', () => {
@@ -366,4 +366,4 @@
             document.body.style.overflow = '';
         }
     });
-// });
+});
